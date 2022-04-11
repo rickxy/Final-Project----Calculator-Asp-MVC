@@ -10,13 +10,15 @@ namespace Calculator.Controllers
 {
     public class AccountController : Controller
     {
-        Entities2 Db = new Entities2();
-        // GET: Account
+        Entities3 Db = new Entities3();
+
+
+        // GET: Login Page
         public ActionResult Login()
         {
             return View();
         }
-
+        // GET: registration
         public ActionResult Signup()
         {
             return View();
@@ -46,7 +48,7 @@ namespace Calculator.Controllers
             Db.SaveChanges();
             return RedirectToAction("Login");
         }
-       c
+     
         public ActionResult Page2()
         {
             ViewBag.Message = "Your application description page.";
@@ -57,6 +59,12 @@ namespace Calculator.Controllers
         public ActionResult Page3()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Index()
+        {
 
             return View();
         }

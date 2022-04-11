@@ -13,10 +13,10 @@ namespace Calculator.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities2 : DbContext
+    public partial class Entities3 : DbContext
     {
-        public Entities2()
-            : base("name=Entities2")
+        public Entities3()
+            : base("name=Entities3")
         {
         }
     
@@ -26,6 +26,7 @@ namespace Calculator.Models
         }
     
         public virtual DbSet<Calculation> Calculations { get; set; }
+        public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<UsersTbl> UsersTbls { get; set; }
     }
 }

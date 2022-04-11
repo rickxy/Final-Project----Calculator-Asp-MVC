@@ -16,6 +16,14 @@
           <Property Name="Result" Type="int" />
           <Property Name="CommandOperator" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Notes" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="UsersTbl">
           <Key>
             <PropertyRef Name="Uid" />
@@ -25,9 +33,26 @@
           <Property Name="Password" Type="nvarchar" MaxLength="100" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_Notes_UsersTbl">
+          <End Role="UsersTbl" Type="Self.UsersTbl" Multiplicity="0..1" />
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersTbl">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Calculation" EntityType="Self.Calculation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersTbl" EntityType="Self.UsersTbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Notes_UsersTbl" Association="Self.FK_Notes_UsersTbl">
+            <End Role="UsersTbl" EntitySet="UsersTbl" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -45,6 +70,15 @@
           <Property Name="Result" Type="Int32" />
           <Property Name="CommandOperator" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="UsersTbl" Relationship="Self.FK_Notes_UsersTbl" FromRole="Notes" ToRole="UsersTbl" />
+        </EntityType>
         <EntityType Name="UsersTbl">
           <Key>
             <PropertyRef Name="Uid" />
@@ -53,17 +87,35 @@
           <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notes" Relationship="Self.FK_Notes_UsersTbl" FromRole="UsersTbl" ToRole="Notes" />
         </EntityType>
-        <EntityContainer Name="Entities2" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_Notes_UsersTbl">
+          <End Role="UsersTbl" Type="Self.UsersTbl" Multiplicity="0..1" />
+          <End Role="Notes" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersTbl">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Calculations" EntityType="Self.Calculation" />
+          <EntitySet Name="Notes" EntityType="Self.Note" />
           <EntitySet Name="UsersTbls" EntityType="Self.UsersTbl" />
+          <AssociationSet Name="FK_Notes_UsersTbl" Association="Self.FK_Notes_UsersTbl">
+            <End Role="UsersTbl" EntitySet="UsersTbls" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities2">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities3">
           <EntitySetMapping Name="Calculations">
             <EntityTypeMapping TypeName="Model.Calculation">
               <MappingFragment StoreEntitySet="Calculation">
@@ -73,6 +125,15 @@
                 <ScalarProperty Name="CommandText" ColumnName="CommandText" />
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="CommandOperator" ColumnName="CommandOperator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="Model.Note">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

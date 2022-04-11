@@ -63,6 +63,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -181,8 +182,11 @@
       <DependentUpon>ERM.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Note.cs">
+      <DependentUpon>ERM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ResultVM.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\AppUserModel.cs" />
     <Compile Include="Models\UsersTbl.cs">
       <DependentUpon>ERM.tt</DependentUpon>
     </Compile>
@@ -252,7 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Accounts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

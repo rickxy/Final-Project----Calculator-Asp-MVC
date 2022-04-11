@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace Calculator.Models
 {
-    
-    public class UserModel
+    public class AppUserModel
     {
-        [Key]
-
         public int Uid { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }

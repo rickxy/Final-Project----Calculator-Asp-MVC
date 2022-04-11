@@ -6,11 +6,13 @@ using System.Web.Mvc;
 using System;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI.MobileControls;
 
 namespace Calculator.Controllers
 {
     public class HomeController : Controller
     {
+        // GET: Home
         public ActionResult Main()
         {
             return View();
@@ -176,7 +178,7 @@ namespace Calculator.Controllers
                 Session["LastResults"] = lastResults;
         }
 
-        Entities2 Db = new Entities2();
+        Entities3 Db = new Entities3();
         // GET: Account
         public ActionResult page5()
         {
@@ -214,8 +216,8 @@ namespace Calculator.Controllers
         }
         public ActionResult Index()
         {
-            var Entities = new Entities2();
-            return View(Entities.UsersTbls.ToList());
+      
+            return View();
         }
         public ActionResult Signout()
         {
